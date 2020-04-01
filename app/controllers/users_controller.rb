@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
     def create 
-        User.create(user_params)
+        @user = User.create(user_params)
+        token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
+        render json{token: token}, :status => :ok 
     end
 
     private 
