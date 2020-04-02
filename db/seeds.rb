@@ -4,6 +4,9 @@ require 'faker'
 User.delete_all 
 Attraction.delete_all 
 
+# setup lat/lng generation based on Atlanta's coordinates 
+southwestCoordinates = [33.696381, -84.434907]
+northeastCoordinates = [33.783714, -84.340275]
 
 # generate users 
 3.times do 
@@ -37,8 +40,8 @@ Attraction.create(
                 name: Faker::TvShows::TheExpanse.location,
                 user_id:User.all.sample.id, 
                 description: Faker::TvShows::HowIMetYourMother.quote,
-                lng: Faker::Address.longitude , 
-                lat:Faker::Address.latitude,
+                lng: rand(southwestCoordinates[1]..northeastCoordinates[1]) , 
+                lat: rand(southwestCoordinates[0]..northeastCoordinates[0]),
                 house_number:Faker::Address.building_number,
                 road: Faker::Address.street_name, 
                 city: Faker::Address.city, 
