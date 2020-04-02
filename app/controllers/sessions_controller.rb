@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: session_params[:email])
 
     if @user && @user.authenticate(session_params[:password])
-        token = JWT.encode({kluser_id: @user.id}, ENV['SECRET'])
-        render :json => { :token => token } , :status => :ok
+        token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
+        render :json => { :token => token} , :status => :ok
     else
-        render :json => {:msg => "login failed!!"}
+        render :json => {:error => "login failed!!"}
     end
   end
 
