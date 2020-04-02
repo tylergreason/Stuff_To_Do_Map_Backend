@@ -1,6 +1,6 @@
 class AttractionsController < ApplicationController
     def index 
         attractions = Attraction.all 
-        return attractions
+        render :json => attractions
     end
 end
