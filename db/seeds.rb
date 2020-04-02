@@ -15,7 +15,7 @@ northeastCoordinates = [33.783714, -84.340275]
         last_name: Faker::Name.last_name,
         username: Faker::Internet.username,
         email: Faker::Internet.email,
-        password_digest: 'a',
+        password: 'a',
         city: Faker::Address.city,
         state: Faker::Address.state,
         country: Faker::Address.country 
@@ -27,7 +27,7 @@ User.create(
         last_name: Faker::Name.last_name,
         username: Faker::Internet.username,
         email: 'test@mail.com',
-        password_digest: 'a',
+        password: 'a',
         city: Faker::Address.city,
         state: Faker::Address.state,
         country: Faker::Address.country 

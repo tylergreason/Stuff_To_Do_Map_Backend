@@ -6,7 +6,6 @@ class UsersController < ApplicationController
         if @user.valid? 
             token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
             render :json => { :token => token }, :status => :ok 
-            byebug
         else
             render :json => {:error => @user.errors.full_messages}
         end
