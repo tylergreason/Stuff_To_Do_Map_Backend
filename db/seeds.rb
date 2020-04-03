@@ -5,8 +5,16 @@ User.delete_all
 Attraction.delete_all 
 
 # setup lat/lng generation based on Atlanta's coordinates 
-southwestCoordinates = [33.696381, -84.434907]
-northeastCoordinates = [33.783714, -84.340275]
+atlantaSouthwestCoordinates = [33.696381, -84.434907]
+atlantaNortheastCoordinates = [33.783714, -84.340275]
+midwestSouthwestCoordinates = [29.592565403314087, -98.45659819956116]
+midwestNortheastCoordinates = [43.628123412124616, -83.07573882456116]
+
+
+# south: 29.592565403314087
+# north: 43.628123412124616
+# east: -83.07573882456116
+# west: -98.45659819956116
 
 # generate users 
 3.times do 
@@ -34,18 +42,37 @@ User.create(
     )
 
 
-# generate attractions 
+# generate attractions in Atlanta 
 10.times do 
-Attraction.create(
-                name: Faker::TvShows::TheExpanse.location,
-                user_id:User.all.sample.id, 
-                description: Faker::TvShows::HowIMetYourMother.quote,
-                lng: rand(southwestCoordinates[1]..northeastCoordinates[1]) , 
-                lat: rand(southwestCoordinates[0]..northeastCoordinates[0]),
-                house_number:Faker::Address.building_number,
-                road: Faker::Address.street_name, 
-                city: Faker::Address.city, 
-                state:Faker::Address.state, 
-                country:Faker::Address.country
-                )
+    Attraction.create(
+        name: Faker::TvShows::TheExpanse.location,
+        user_id:User.all.sample.id, 
+        description: Faker::TvShows::HowIMetYourMother.quote,
+        lng: rand(atlantaSouthwestCoordinates[1]..atlantaNortheastCoordinates[1]) , 
+        lat: rand(atlantaSouthwestCoordinates[0]..atlantaNortheastCoordinates[0]),
+        house_number:Faker::Address.building_number,
+        road: Faker::Address.street_name, 
+        city: "Atlanta", 
+        state:Faker::Address.state, 
+        country:Faker::Address.country
+        )
 end
+
+2000.times do 
+    Attraction.create(
+        name: Faker::TvShows::TheExpanse.location,
+        user_id:User.all.sample.id, 
+        description: Faker::TvShows::HowIMetYourMother.quote,
+        lng: rand(midwestSouthwestCoordinates[1]..midwestNortheastCoordinates[1]) , 
+        lat: rand(midwestSouthwestCoordinates[0]..midwestNortheastCoordinates[0]),
+        house_number:Faker::Address.building_number,
+        road: Faker::Address.street_name, 
+        city: Faker::Address.city, 
+        state:Faker::Address.state, 
+        country:Faker::Address.country
+    )
+end
+
+
+
+
