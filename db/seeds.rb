@@ -58,7 +58,7 @@ User.create(
         )
 end
 
-2000.times do 
+20.times do 
     Attraction.create(
         name: Faker::TvShows::TheExpanse.location,
         user_id:User.all.sample.id, 
