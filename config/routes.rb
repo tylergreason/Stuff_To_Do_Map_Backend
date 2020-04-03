@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # custom routes 
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'
+  post '/attractions', to: 'attractions#getAttractionsByBounds'
   # post '/logout', to: 'sessions#destroy' 
 
 end
