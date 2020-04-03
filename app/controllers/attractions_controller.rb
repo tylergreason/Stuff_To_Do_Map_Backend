@@ -14,9 +14,18 @@ class AttractionsController < ApplicationController
     def my_attractions
         # byebug
         p 'this is my_attractions'
-        my_attractions = Attraction.where(user_id: current_user.id)
+        my_attractions = Attraction.attractions_by_user(current_user.id)
+        # my_attractions = Attraction.where(user_id: current_user.id)
         p my_attractions
         render :json => my_attractions
+    end
+
+    def destroy 
+        attraction_to_delete = Attraction.find(params[:id])
+        attraction_to_delete.delete 
+        my_attractions = Attraction.attractions_by_user(current_user.id)
+        render :json => my_attractions
+
     end
 
 end
