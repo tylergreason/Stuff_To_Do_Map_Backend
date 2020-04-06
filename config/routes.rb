@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   # get 'sessions/create'
   resources :session, only: [:create]
-  resources :user, only: [:create, :destroy, :show, :update]
+  resources :users, only: [:create, :destroy, :show, :update]
   resources :attractions, only: [:index, :create, :destroy, :show, :update]
   # resources :attractions
   # get 'sessions/destroy'
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'
   get '/myAttractions', to: 'attractions#my_attractions'
+  get '/myAccount', to: 'users#my_account'
   # post '/logout', to: 'sessions#destroy' 
 
 end

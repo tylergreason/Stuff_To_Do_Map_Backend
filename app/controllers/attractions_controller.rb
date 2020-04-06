@@ -11,6 +11,7 @@ class AttractionsController < ApplicationController
         render :json => attractions
     end
 
+    # custom route for current user's attractions 
     def my_attractions
         # byebug
         p 'this is my_attractions'

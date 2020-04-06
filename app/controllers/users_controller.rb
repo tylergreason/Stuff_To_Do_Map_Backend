@@ -11,8 +11,10 @@ class UsersController < ApplicationController
         end
     end
 
-    def show 
-        # @user = current_user
+    # custom route for getting current user info without needing user ID on front end 
+    def my_account 
+        @user = current_user 
+        render :json => @user 
     end
 
     def destroy 
@@ -26,12 +28,15 @@ class UsersController < ApplicationController
         end 
     end
 
-    # def update
-    #     remember to save!
-    # end
+    def update
+        user_to_update = User.find(user_params[:id])
+        user_to_update.update(user_params) 
+        user_to_update.save 
+        render :json => user_to_update
+    end
 
     private 
     def user_params 
-        params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :city, :state, :country)
+        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password, :city, :state, :country)
     end
 end
