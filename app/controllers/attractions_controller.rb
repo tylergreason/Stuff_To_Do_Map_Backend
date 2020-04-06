@@ -39,11 +39,20 @@ class AttractionsController < ApplicationController
     end
 
     def create 
+        new_attraction = Attraction.create(attraction_params) 
+        new_attraction.user_id = current_user.id 
+        if new_attraction.valid? 
+            new_attraction.save
+            my_attractions = Attraction.attractions_by_user(current_user.id)
+            render :json => my_attractions
+        else
+            render :json => {:error => new_attraction.errors.full_messages}
+        end 
         # LEFT OFF HERE 
         # NEED A WAY FOR THE NEW ATTRACTION TO HAVE SOME KIND OF DEFAULT LAT AND LNG
         #  DON'T FORGET TO GIVE IT THE CURRENT_USER'S ID 
         # AND DON'T FORGET TO SAVE IT 
-        byebug
+        # byebug
     end
 
     private 
