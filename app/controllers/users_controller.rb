@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
     def create 
         @user = User.create(user_params)
-        
-        # byebug
+        byebug
         if @user.valid? 
             token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
             render :json => { :token => token }, :status => :ok 
@@ -14,7 +13,7 @@ class UsersController < ApplicationController
     # custom route for getting current user info without needing user ID on front end 
     def my_account 
         @user = current_user 
-        render :json => @user 
+        render :json => @user   
     end
 
     def destroy 
@@ -30,13 +29,17 @@ class UsersController < ApplicationController
 
     def update
         user_to_update = User.find(user_params[:id])
-        user_to_update.update(user_params) 
-        user_to_update.save 
-        render :json => user_to_update
+        if user_to_update
+            user_to_update.update(user_params) 
+            user_to_update.save 
+            render :json => user_to_update
+        else 
+            render :json => {:error => user_to_update.errors.full_messages}
+        end
     end
 
     private 
     def user_params 
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password, :city, :state, :country)
+        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password_digest, :city, :state, :country)
     end
 end
