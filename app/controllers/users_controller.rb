@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     def destroy 
         @user = User.find_by(email: user_params[:email])
         # make the user enter their password before deletion 
-        if @user && @user.authenticate(user_params[:password])
+        if @user && @user.authenticate(user_params[:current_password])
             @user.delete
             render :json => {:msg => "user deleted"}
         else 
@@ -30,8 +30,9 @@ class UsersController < ApplicationController
 
     def update
         user_to_update = User.find(user_params[:id])
-        if user_to_update
-            user_to_update.update(user_params) 
+        if user_to_update && user_to_update.authenticate(user_params[:password])
+
+            user_to_update.update(user_params.except(:password)) 
             user_to_update.save 
             render :json => user_to_update, :except => @@render_exclude_options
         else 
@@ -41,6 +42,6 @@ class UsersController < ApplicationController
 
     private 
     def user_params 
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password, :password_confirmation, :city, :state, :country)
+        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country)
     end
 end
