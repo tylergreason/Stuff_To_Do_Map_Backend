@@ -1,4 +1,7 @@
 class AttractionsController < ApplicationController
+    # define arrays for what to include or exclude when rendering 
+    @@render_exclude_options = [:created_at, :updated_at]
+
     def index 
         # byebug
         # bounds = request.headers['bounds']
@@ -8,24 +11,20 @@ class AttractionsController < ApplicationController
         west = request.headers['west'].to_f
         
         attractions = Attraction.attractions_in_bounds(north,east,south,west)
-        render :json => attractions
+        render :json => attractions, :exclude => @@render_exclude_options
     end
 
     # custom route for current user's attractions 
     def my_attractions
-        # byebug
-        p 'this is my_attractions'
         my_attractions = Attraction.attractions_by_user(current_user.id)
-        # my_attractions = Attraction.where(user_id: current_user.id)
-        p my_attractions
-        render :json => my_attractions
+        render :json => my_attractions, :except => @@render_exclude_options
     end
 
     def destroy 
         attraction_to_delete = Attraction.find(params[:id])
         attraction_to_delete.delete 
         my_attractions = Attraction.attractions_by_user(current_user.id)
-        render :json => my_attractions
+        render :json => my_attractions, :except => @@render_exclude_options
     end
 
     def update 
@@ -35,7 +34,7 @@ class AttractionsController < ApplicationController
         # byebug
         attraction_to_update.save
         my_attractions = Attraction.attractions_by_user(current_user.id)
-        render :json => my_attractions
+        render :json => my_attractions, :exclude => @@render_exclude_options
     end
 
     def create 
@@ -44,16 +43,11 @@ class AttractionsController < ApplicationController
         if new_attraction.valid? 
             new_attraction.save
             my_attractions = Attraction.attractions_by_user(current_user.id)
-            render :json => my_attractions
+            render :json => my_attractions, :exclude => @@render_exclude_options
         else
             # byebug
             render :json => {:error => new_attraction.errors.full_messages}
         end 
-        # LEFT OFF HERE 
-        # NEED A WAY FOR THE NEW ATTRACTION TO HAVE SOME KIND OF DEFAULT LAT AND LNG
-        #  DON'T FORGET TO GIVE IT THE CURRENT_USER'S ID 
-        # AND DON'T FORGET TO SAVE IT 
-        # byebug
     end
 
     private 
