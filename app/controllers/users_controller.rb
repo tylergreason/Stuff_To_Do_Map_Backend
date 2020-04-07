@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    @@render_exclude_options = [:created_at, :updated_at, :password_digest]
     def create 
         @user = User.create(user_params)
         # byebug
@@ -12,8 +13,8 @@ class UsersController < ApplicationController
 
     # custom route for getting current user info without needing user ID on front end 
     def my_account 
-        @user = current_user 
-        render :json => @user   
+        user = current_user 
+        render :json => user, :except => @@render_exclude_options  
     end
 
     def destroy 
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
         if user_to_update
             user_to_update.update(user_params) 
             user_to_update.save 
-            render :json => user_to_update
+            render :json => user_to_update, :except => @@render_exclude_options
         else 
             render :json => {:error => user_to_update.errors.full_messages}
         end

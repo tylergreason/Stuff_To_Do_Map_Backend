@@ -3,8 +3,6 @@ class AttractionsController < ApplicationController
     @@render_exclude_options = [:created_at, :updated_at]
 
     def index 
-        # byebug
-        # bounds = request.headers['bounds']
         north = request.headers['north'].to_f
         east = request.headers['east'].to_f
         south = request.headers['south'].to_f
