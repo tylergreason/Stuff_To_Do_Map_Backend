@@ -1,5 +1,6 @@
 class Attraction < ApplicationRecord
     belongs_to :user
+    validates :name, :description, :lat, :lng, presence: true
 
     def self.attractions_in_bounds(north, east, south, west)
         Attraction.select {|attraction|

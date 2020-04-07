@@ -46,6 +46,7 @@ class AttractionsController < ApplicationController
             my_attractions = Attraction.attractions_by_user(current_user.id)
             render :json => my_attractions
         else
+            # byebug
             render :json => {:error => new_attraction.errors.full_messages}
         end 
         # LEFT OFF HERE 
