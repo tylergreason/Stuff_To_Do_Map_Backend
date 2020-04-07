@@ -1,7 +1,11 @@
 class Attraction < ApplicationRecord
     belongs_to :user
-    validates :name, :description, :lat, :lng, presence: true
 
+    validates :name, :description, :lat, :lng, presence: true
+    validates :description, length: {in: 10..250}
+    validates :name, length: {in: 5..25}
+    validates :lat, :lng, numericality: true 
+    
     def self.attractions_in_bounds(north, east, south, west)
         Attraction.select {|attraction|
             attraction.lat.between?(south,north) and attraction.lng.between?(west,east)
