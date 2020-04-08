@@ -10,7 +10,8 @@ class User < ApplicationRecord
             if self.authenticate(current_password)
                 self.update(password:new_password)
                 self.save
-                return self    
+                # return self    
+                return {:success => "Password changed"}
             else
                 return {:error => "Incorrect password"}
             end
