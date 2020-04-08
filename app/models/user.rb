@@ -51,5 +51,19 @@ class User < ApplicationRecord
         end
     end
 
+    def delete_user(info)
+        if self.authenticate(info[:password])
+            if info[:save_attractions] == false 
+                self.destroy
+                return {:success => "User deleted"}
+            else 
+                # find some user to give ownership of this user's attractions to another user 
+                return {:success => "This will be a success eventually!"}
+            end
+        else
+            return {:error => "Incorrect password"} 
+        end
+    end
+
 
 end

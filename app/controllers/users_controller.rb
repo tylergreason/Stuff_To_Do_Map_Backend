@@ -18,14 +18,8 @@ class UsersController < ApplicationController
     end
 
     def destroy 
-        @user = User.find_by(email: user_params[:email])
-        # make the user enter their password before deletion 
-        if @user && @user.authenticate(user_params[:current_password])
-            @user.delete
-            render :json => {:msg => "user deleted"}
-        else 
-            render :json => {:error => @user.error.full_messages}
-        end 
+        user = User.find(user_params[:id])
+        render json: user.delete_user(user_params)
     end
 
     def update
@@ -46,6 +40,6 @@ class UsersController < ApplicationController
 
     private 
     def user_params 
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country,:new_email, :email_confirmation)
+        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country,:new_email, :email_confirmation, :save_attractions,)
     end
 end

@@ -17,12 +17,12 @@ midwestNortheastCoordinates = [43.628123412124616, -83.07573882456116]
 # west: -98.45659819956116
 
 # generate users 
-3.times do 
+10.times do |time|
     User.create( 
         first_name: Faker::Name.first_name, 
         last_name: Faker::Name.last_name,
         username: Faker::Internet.username,
-        email: Faker::Internet.email,
+        email: time,
         password: 'a',
         city: Faker::Address.city,
         state: Faker::Address.state,
