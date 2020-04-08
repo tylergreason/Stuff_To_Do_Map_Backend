@@ -44,11 +44,15 @@ class UsersController < ApplicationController
         user_to_update = User.find(user_params[:id])
         # byebug
         render json: user_to_update.change_password(user_params[:current_password],user_params[:password],user_params[:password_confirmation])
+    end
 
+    def update_email 
+        user_to_update = User.find(user_params[:id])
+        render json: user_to_update.change_email(user_params[:new_email], user_params[:email_confirmation], user_params[:current_password])
     end
 
     private 
     def user_params 
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country)
+        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country,:new_email, :email_confirmation)
     end
 end

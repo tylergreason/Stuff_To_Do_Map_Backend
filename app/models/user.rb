@@ -19,4 +19,21 @@ class User < ApplicationRecord
                 return {:error => "Passwords don't match"}
         end
     end
+
+    def change_email(new_email, email_confirmation, current_password)
+        if new_email == email_confirmation
+            if self.authenticate(current_password)
+                self.email = new_email 
+                self.save 
+                return {:success => "Email updated", :email => new_email}
+            else 
+                return {:error => "Incorrect password"}
+            end
+        else
+            return {:error => "Emails don't match"}
+
+        end
+    end
+
+
 end

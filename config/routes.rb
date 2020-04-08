@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/myAttractions', to: 'attractions#my_attractions'
   get '/myAccount', to: 'users#my_account'
   patch '/updatePassword', to: 'users#update_password'
+  patch '/updateEmail', to: 'users#update_email'
   # post '/logout', to: 'sessions#destroy' 
 
 end
