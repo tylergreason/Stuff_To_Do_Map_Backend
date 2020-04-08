@@ -42,7 +42,9 @@ class UsersController < ApplicationController
 
     def update_password 
         user_to_update = User.find(user_params[:id])
-        byebug
+        # byebug
+        render json: user_to_update.change_password(user_params[:current_password],user_params[:password],user_params[:password_confirmation]), except: @@render_exclude_options
+
     end
 
     private 
