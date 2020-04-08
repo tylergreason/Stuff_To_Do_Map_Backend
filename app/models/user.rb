@@ -31,7 +31,23 @@ class User < ApplicationRecord
             end
         else
             return {:error => "Emails don't match"}
+        end
+    end
 
+    def update_info(info)
+        if self.authenticate(info[:password])
+            # get the user_params hash without the password 
+            # we do NOT want to update the user's password here 
+            info_without_password = info.select{|k| k != "password"}
+            self.update(info_without_password) 
+            self.save 
+            self_to_return = self.attributes.select{|k| k!= "password_digest" && k!= 'created_at' && k != 'updated_at'}
+            return {:success => "Information updated", :user => self_to_return}
+            # , :except => [:created_at, :updated_at, :password_digest]
+            # return :success => "Infomation updated", :user => self
+            # , :except => [:created_at, :updated_at, :password_digest]
+        else
+            return {:error => "Incorrect password"}
         end
     end
 

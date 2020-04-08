@@ -30,14 +30,7 @@ class UsersController < ApplicationController
 
     def update
         user_to_update = User.find(user_params[:id])
-        if user_to_update && user_to_update.authenticate(user_params[:password])
-
-            user_to_update.update(user_params.except(:password)) 
-            user_to_update.save 
-            render :json => user_to_update, :except => @@render_exclude_options
-        else 
-            render :json => {:error => user_to_update.errors.full_messages}
-        end
+        render json: user_to_update.update_info(user_params)
     end
 
     def update_password 
