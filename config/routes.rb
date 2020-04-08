@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/myAttractions', to: 'attractions#my_attractions'
   get '/myAccount', to: 'users#my_account'
+  get '/updatePassword', to: 'users#update_password'
   # post '/logout', to: 'sessions#destroy' 
 
 end

@@ -40,6 +40,11 @@ class UsersController < ApplicationController
         end
     end
 
+    def update_password 
+        user_to_update = User.find(user_params[:id])
+        byebug
+    end
+
     private 
     def user_params 
         params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :current_password, :password, :password_confirmation, :city, :state, :country)
