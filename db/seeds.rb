@@ -58,6 +58,7 @@ User.create(
         )
 end
 
+# generate attractions in the midwest USA 
 50.times do 
     Attraction.create(
         name:Faker::Games::Zelda.location,
@@ -70,6 +71,16 @@ end
         city: Faker::Address.city, 
         state:Faker::Address.state, 
         country:Faker::Address.country
+    )
+end
+
+# generate reviews for random users and attractions 
+300.times do 
+    Review.create( 
+        user_id: User.all.sample.id, 
+        attraction_id: Attraction.all.sample.id, 
+        rating: rand(1..5), 
+        text: Faker::Quote.matz 
     )
 end
 
