@@ -7,12 +7,9 @@ class Attraction < ApplicationRecord
     validates :name, length: {in: 5..25}
     validates :lat, :lng, numericality: true 
     
-    def self.attractions_in_bounds(north, east, south, west)
-        attractions = Attraction.select {|attraction|
-            attraction.lat.between?(south,north) and attraction.lng.between?(west,east)
-        }
-        # return_attractions = attractions.map{|a| a.to_json(except: [:created_at, :updated_at], methods: :average_rating)}
-        new_attractions = attractions.map {|a| {
+    # method to return just the data we need when returning attractions 
+    def self.just_attraction_data(array) 
+        return array.map {|a| {
             id:a.id, 
             name: a.name,
             user_id: a.user_id,
@@ -25,7 +22,15 @@ class Attraction < ApplicationRecord
             state: a.state,
             country: a.country,
             average_rating: a.average_rating
-            }}
+        }}
+    end
+
+    def self.attractions_in_bounds(north, east, south, west)
+        attractions = Attraction.select {|attraction|
+            attraction.lat.between?(south,north) and attraction.lng.between?(west,east)
+        }
+        # return_attractions = attractions.map{|a| a.to_json(except: [:created_at, :updated_at], methods: :average_rating)}
+        return just_attraction_data(attractions)
     end
 
     def self.attractions_by_user(id) 
@@ -40,4 +45,5 @@ class Attraction < ApplicationRecord
             nil
         end
     end
+
 end
