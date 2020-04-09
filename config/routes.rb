@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :session, only: [:create]
   resources :users, only: [:create, :destroy, :update]
   resources :attractions, only: [:index, :create, :destroy, :show, :update]
-  resources :reviews, only: [:create]
+  resources :reviews, only: [:create, :destroy]
   # custom routes 
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'

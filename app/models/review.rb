@@ -28,6 +28,7 @@ class Review < ApplicationRecord
             user_last_name:self.user.last_name, 
             rating: self.rating,
             attraction_average_rating: self.attraction.average_rating,
+            attraction:self.attraction,
             created_at: self.created_at.to_date
         }
     end

@@ -17,7 +17,7 @@ class AttractionsController < ApplicationController
     # custom route for current user's attractions 
     def my_attractions
         my_attractions = Attraction.attractions_by_user(current_user.id)
-        render :json => my_attractions, :except => @@render_exclude_options
+        render :json => Attraction.just_attraction_data(my_attractions), :except => @@render_exclude_options
     end
 
     def destroy 
