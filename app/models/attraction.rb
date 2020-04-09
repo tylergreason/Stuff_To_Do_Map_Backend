@@ -25,11 +25,27 @@ class Attraction < ApplicationRecord
         }}
     end
 
+    def attraction_with_reviews 
+        {
+            id:self.id, 
+            name: self.name,
+            user_id: self.user_id,
+            description: self.description,
+            lng: self.lng,
+            lat: self.lat,
+            house_number: self.house_number,
+            road: self.road,
+            city: self.city,
+            state: self.state,
+            country: self.country,
+            average_rating: self.average_rating,
+            reviews:self.reviews
+        }
+    end
     def self.attractions_in_bounds(north, east, south, west)
         attractions = Attraction.select {|attraction|
             attraction.lat.between?(south,north) and attraction.lng.between?(west,east)
         }
-        # return_attractions = attractions.map{|a| a.to_json(except: [:created_at, :updated_at], methods: :average_rating)}
         return just_attraction_data(attractions)
     end
 

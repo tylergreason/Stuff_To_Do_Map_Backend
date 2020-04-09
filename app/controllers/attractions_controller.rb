@@ -47,6 +47,11 @@ class AttractionsController < ApplicationController
         end 
     end
 
+    def show 
+        attraction = Attraction.find(params[:id])
+        render :json => attraction.attraction_with_reviews
+    end
+
     private 
     def attraction_params 
         params.require(:attraction).permit(:id,:name,:description,:user_id,:lng,:lat,:house_number,:road,:city,:state,:country)
