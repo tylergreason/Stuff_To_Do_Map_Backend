@@ -39,7 +39,7 @@ class Attraction < ApplicationRecord
             state: self.state,
             country: self.country,
             average_rating: self.average_rating,
-            reviews:self.reviews
+            reviews:Review.review_with_user(self.reviews)
         }
     end
     def self.attractions_in_bounds(north, east, south, west)

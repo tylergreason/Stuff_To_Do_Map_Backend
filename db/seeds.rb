@@ -2,7 +2,8 @@ require 'faker'
 
 # delete old data 
 User.delete_all 
-Attraction.delete_all 
+Attraction.delete_all
+Review.delete_all
 
 # setup lat/lng generation based on Atlanta's coordinates 
 atlantaSouthwestCoordinates = [33.696381, -84.434907]
