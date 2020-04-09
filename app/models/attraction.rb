@@ -16,4 +16,9 @@ class Attraction < ApplicationRecord
     def self.attractions_by_user(id) 
         Attraction.where(user_id: id) 
     end
+
+    def average_rating
+        ratings = self.reviews.map{|review| review.rating }
+        ratings.sum/ratings.length 
+    end
 end
