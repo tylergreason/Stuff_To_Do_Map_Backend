@@ -4,6 +4,7 @@ class User < ApplicationRecord
     validates :email, uniqueness: true 
 
     has_many :attractions, dependent: :destroy
+    has_many :reviews, dependent: :destroy
 
     def change_password(current_password,new_password,new_password_confirmation) 
         if new_password == new_password_confirmation

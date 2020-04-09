@@ -1,5 +1,6 @@
 class Attraction < ApplicationRecord
     belongs_to :user
+    has_many :reviews, dependent: :destroy
 
     validates :name, :description, :lat, :lng, presence: true
     validates :description, length: {in: 10..250}
