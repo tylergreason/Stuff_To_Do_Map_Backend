@@ -17,7 +17,7 @@ midwestNortheastCoordinates = [43.628123412124616, -83.07573882456116]
 # west: -98.45659819956116
 
 # generate users 
-10.times do |time|
+3.times do |time|
     User.create( 
         first_name: Faker::Name.first_name, 
         last_name: Faker::Name.last_name,
@@ -45,9 +45,9 @@ User.create(
 # generate attractions in Atlanta 
 10.times do 
     Attraction.create(
-        name: Faker::TvShows::TheExpanse.location,
+        name: Faker::Games::Fallout.location,
         user_id:User.all.sample.id, 
-        description: Faker::TvShows::HowIMetYourMother.quote,
+        description: Faker::Lorem.paragraph,
         lng: rand(atlantaSouthwestCoordinates[1]..atlantaNortheastCoordinates[1]) , 
         lat: rand(atlantaSouthwestCoordinates[0]..atlantaNortheastCoordinates[0]),
         house_number:Faker::Address.building_number,
@@ -58,11 +58,11 @@ User.create(
         )
 end
 
-20.times do 
+50.times do 
     Attraction.create(
-        name: Faker::TvShows::TheExpanse.location,
+        name:Faker::Games::Zelda.location,
         user_id:User.all.sample.id, 
-        description: Faker::TvShows::HowIMetYourMother.quote,
+        description: Faker::Quote.matz,
         lng: rand(midwestSouthwestCoordinates[1]..midwestNortheastCoordinates[1]) , 
         lat: rand(midwestSouthwestCoordinates[0]..midwestNortheastCoordinates[0]),
         house_number:Faker::Address.building_number,

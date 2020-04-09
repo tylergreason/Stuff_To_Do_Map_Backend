@@ -27,9 +27,7 @@ class AttractionsController < ApplicationController
 
     def update 
         attraction_to_update = Attraction.find(attraction_params[:id])
-        # attraction_to_update.name = attraction_params['name']
         attraction_to_update.update(attraction_params)
-        # byebug
         attraction_to_update.save
         my_attractions = Attraction.attractions_by_user(current_user.id)
         render :json => my_attractions, :exclude => @@render_exclude_options
@@ -43,7 +41,6 @@ class AttractionsController < ApplicationController
             my_attractions = Attraction.attractions_by_user(current_user.id)
             render :json => my_attractions, :exclude => @@render_exclude_options
         else
-            # byebug
             render :json => {:error => new_attraction.errors.full_messages}
         end 
     end

@@ -2,7 +2,6 @@ class UsersController < ApplicationController
     @@render_exclude_options = [:created_at, :updated_at, :password_digest]
     def create 
         @user = User.create(user_params)
-        # byebug
         if @user.valid? 
             token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
             render :json => { :token => token }, :status => :ok 
