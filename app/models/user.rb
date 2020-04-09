@@ -57,8 +57,10 @@ class User < ApplicationRecord
                 self.destroy
                 return {:success => "User deleted"}
             else 
-                # find some user to give ownership of this user's attractions to another user 
-                return {:success => "This will be a success eventually!"}
+                # find some user to give ownership of this user's attractions to another user
+                #  using delete because it does not delete this user's attractions 
+                self.delete 
+                return {:success => "User deleted"}
             end
         else
             return {:error => "Incorrect password"} 
