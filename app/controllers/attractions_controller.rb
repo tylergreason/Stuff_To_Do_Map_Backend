@@ -1,6 +1,7 @@
 class AttractionsController < ApplicationController
     # define arrays for what to include or exclude when rendering 
     @@render_exclude_options = [:created_at, :updated_at]
+    @@render_review_include_options = [:text, :rating]
 
     def index 
         north = request.headers['north'].to_f
@@ -9,7 +10,8 @@ class AttractionsController < ApplicationController
         west = request.headers['west'].to_f
         
         attractions = Attraction.attractions_in_bounds(north,east,south,west)
-        render :json => attractions, :exclude => @@render_exclude_options
+        # byebug
+        render :json => attractions
     end
 
     # custom route for current user's attractions 
