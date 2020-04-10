@@ -4,7 +4,7 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
         if @user.valid? 
             token = JWT.encode({user_id: @user.id}, ENV['SECRET'])
-            render :json => { :token => token }, :status => :ok 
+            render :json => { :token => token, :user => @user.user_info, :success => 'User created' }, :status => :ok 
         else
             render :json => {:error => @user.errors.full_messages}
         end

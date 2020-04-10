@@ -10,7 +10,6 @@ class AttractionsController < ApplicationController
         west = request.headers['west'].to_f
         
         attractions = Attraction.attractions_in_bounds(north,east,south,west)
-        # byebug
         render :json => attractions
     end
 

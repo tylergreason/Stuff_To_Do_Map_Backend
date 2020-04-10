@@ -4,7 +4,6 @@ class ReviewsController < ApplicationController
         new_review = Review.create(review_params) 
         new_review.user_id = current_user.id 
         new_review.save
-        # byebug
         if new_review.valid? 
             render :json => {:attraction => new_review.attraction.attraction_with_reviews, :success => "Review added!"}
         else
