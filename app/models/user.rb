@@ -52,6 +52,15 @@ class User < ApplicationRecord
         end
     end
 
+    # method to reassign attractions and reviews that are going to be deleted to user 1
+    def reasign_list_to_1(list)
+        user_1 = User.find(1)
+        list.each {|item|
+            item.user = user_1
+            item.save 
+        }
+    end
+
     def delete_user(info)
         if self.authenticate(info[:password])
             if info[:save_attractions] == false 
@@ -60,6 +69,8 @@ class User < ApplicationRecord
             else 
                 # find some user to give ownership of this user's attractions to another user
                 #  using delete because it does not delete this user's attractions 
+                reasign_list_to_1(self.reviews) 
+                reasign_list_to_1(self.attractions)
                 self.delete 
                 return {:success => "User deleted"}
             end

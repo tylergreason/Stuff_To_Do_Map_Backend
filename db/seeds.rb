@@ -17,6 +17,20 @@ midwestNortheastCoordinates = [43.628123412124616, -83.07573882456116]
 # east: -83.07573882456116
 # west: -98.45659819956116
 
+# create placeholder user for attractions and reviews whose user has been deleted 
+User.create( 
+    id:1, 
+    first_name: 'deleted', 
+    last_name: 'user',
+    username: 'deleted_user',
+    email: 'deleted_user@fakemail.com',
+    password: 'admin',
+    city: 'deleted_user',
+    state: 'deleted_user',
+    country: 'deleted_user' 
+)
+
+
 # generate users 
 3.times do |time|
     User.create( 

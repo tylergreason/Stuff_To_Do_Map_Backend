@@ -48,6 +48,7 @@ class AttractionsController < ApplicationController
 
     def show 
         attraction = Attraction.find(params[:id])
+        # byebug
         render :json => attraction.attraction_with_reviews
     end
 
