@@ -29,9 +29,13 @@ class AttractionsController < ApplicationController
     def update 
         attraction_to_update = Attraction.find(attraction_params[:id])
         attraction_to_update.update(attraction_params)
-        attraction_to_update.save
-        my_attractions = Attraction.attractions_by_user(current_user.id)
-        render :json => my_attractions, :exclude => @@render_exclude_options
+        if attraction_to_update.valid?
+            attraction_to_update.save
+            my_attractions = Attraction.attractions_by_user(current_user.id)
+            render :json => my_attractions, :exclude => @@render_exclude_options
+        else
+            render :json => {:error => attraction_to_update.errors.full_messages}
+        end
     end
 
     def create 

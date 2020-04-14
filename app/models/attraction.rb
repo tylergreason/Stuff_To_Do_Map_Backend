@@ -2,7 +2,9 @@ class Attraction < ApplicationRecord
     belongs_to :user
     has_many :reviews, dependent: :destroy
 
-    validates :name, :description, :lat, :lng, presence: true
+    validates :name, :description, presence: true
+    validates :lat, presence: {message: ": click on the map to add a value for latitude."}
+    validates :lng, presence: {message: ": click on the map to add a value for longitude."}
     validates :description, length: {in: 10..250}
     validates :name, length: {in: 5..25}
     validates :lat, :lng, numericality: true 

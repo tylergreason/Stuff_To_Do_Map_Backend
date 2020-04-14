@@ -23,7 +23,12 @@ class UsersController < ApplicationController
 
     def update
         user_to_update = User.find(user_params[:id])
-        render json: user_to_update.update_info(user_params)
+        if user_to_update.valid? 
+            user_to_update.save 
+            render json: user_to_update.update_info(user_params)
+        else
+            render :json => {:error => user_to_update.errors.full_messages}
+        end
     end
 
     def update_password 
