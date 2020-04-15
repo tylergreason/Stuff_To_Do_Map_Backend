@@ -94,7 +94,7 @@ end
     Review.create( 
         user_id: User.all.sample.id, 
         attraction_id: Attraction.all.sample.id, 
-        rating: rand(1..5), 
+        rating: rand(1..10), 
         text: Faker::Quote.matz 
     )
 end
