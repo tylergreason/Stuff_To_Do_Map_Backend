@@ -22,4 +22,4 @@
 /config/master.key
 
 # ignore secret key 
-.env
+/.env
