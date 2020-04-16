@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   # post '/logout', to: 'sessions#destroy' 
   
   get '/otmAttractions', to: 'otm_attractions#index'
+  get '/fetchWikidata', to: 'otm_attractions#wikidata'
 end

@@ -10,4 +10,10 @@ class OtmAttractionsController < ApplicationController
         # attractions = Attraction.attractions_in_bounds(north,east,south,west)
         # render :json => attractions
     end
+
+    def wikidata
+        xid = request.headers['xid'].to_s
+        wikidata_data = OtmAttraction.fetch_wikidata(xid) 
+        render :json => wikidata_data
+    end
 end
