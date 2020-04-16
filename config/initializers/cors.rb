@@ -7,7 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ['https://tylergreason.github.io/Stuff_To_Do_Map_Frontend']
+    # origins ['https://tylergreason.github.io/Stuff_To_Do_Map_Frontend']
+    origins '*'
 
     resource '*',
       headers: :any,
