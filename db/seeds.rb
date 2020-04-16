@@ -18,26 +18,28 @@ midwestNortheastCoordinates = [43.628123412124616, -83.07573882456116]
 # west: -98.45659819956116
 
 # create placeholder user for attractions and reviews whose user has been deleted 
-User.create( 
-    id:1, 
-    first_name: 'deleted', 
-    last_name: 'user',
-    username: 'deleted_user',
-    email: 'deleted_user@fakemail.com',
-    password: 'admin',
-    city: 'deleted_user',
-    state: 'deleted_user',
-    country: 'deleted_user' 
-)
+# User.create( 
+#     id:1, 
+#     first_name: 'deleted', 
+#     last_name: 'user',
+#     username: 'deleted_user',
+#     email: 'deleted_user@fakemail.com',
+#     password: ,
+#     city: 'deleted_user',
+#     state: 'deleted_user',
+#     country: 'deleted_user' 
+# )
 
+# make random review texts whose scores match with their place in the array 
+random_review = ['This place is the pits!', 'This place is for the birds!', 'I would not go here again :/','This place was alright.', 'This place is a solid 5 stars... out of ten!', 'Ok to visit if you are close, but do not go out of your way.', 'I liked this place!', 'This place was great to experience!', 'This place is the BEST!', 'This place is the ABSOLUTE BEST!']
 
 # generate users 
-3.times do |time|
+10.times do |time|
     User.create( 
         first_name: Faker::Name.first_name, 
         last_name: Faker::Name.last_name,
         username: Faker::Internet.username,
-        email: time,
+        email: time.to_s + '@mail.com',
         password: 'a',
         city: Faker::Address.city,
         state: Faker::Address.state,
@@ -91,11 +93,13 @@ end
 
 # generate reviews for random users and attractions 
 300.times do 
+    rating = rand(0..9)
+    text = random_review[rating]
     Review.create( 
         user_id: User.all.sample.id, 
         attraction_id: Attraction.all.sample.id, 
-        rating: rand(1..10), 
-        text: Faker::Quote.matz 
+        rating: rating+1, 
+        text: text 
     )
 end
 
