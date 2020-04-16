@@ -1,0 +1,3 @@
+class OtmAttraction < ApplicationRecord
+    
+end
